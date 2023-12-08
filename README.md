@@ -1,6 +1,5 @@
 # MATH 209 HW 3
 
-Math 209 - Homework 4
 Due date: Tuesday, November 21st
 1. Find the solution1
 to the Dirichlet problem
