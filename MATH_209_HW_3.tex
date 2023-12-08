@@ -1,0 +1,203 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{geometry}
+\usepackage{textcomp}
+\usepackage{amsmath}
+
+\title{\textbf{MATH 209: HW 3}}
+\author{Jeffery Zhang}
+\date{Due: November 22nd, 2023}
+
+\begin{document}
+\maketitle
+
+\section{Question 1}
+Find the solution to the Dirichlet problem: 
+\begin{center}
+    \(\displaystyle \frac{\partial u}{\partial t}(t, x) = \frac{\partial^2u}{\partial x^2}(t, x)\)\\*[10pt]
+    \(u(t, 0) = u(t, 1) = 0\)\\*[10pt]
+    \(u(0, x) = f(x)\)\\*[10pt]
+\end{center}
+in the following two cases:\\*[10pt]
+\textbf{a.)} \ \(f(x) = x - \frac{1}{2}\\*[10pt]\)
+\textbf{b.)} \ \(f(x) = 1\) if \(x \in (0, \frac{1}{2})\), and \(f(x) = 0\) if \(x \in (\frac{1}{2}, 1)\\*[10pt]\)
+We know the the generalized form of the heat equation solution:
+\begin{center}
+    \begin{equation}\label{eq:heat_gen}
+        \displaystyle u(t, x) = \sum_{n=0}^{\infty} c_ne^{-n^2\pi^2t}\sin(n\pi x)
+    \end{equation}
+\end{center}
+And the generalized form for the coefficients:
+\begin{center}
+    \begin{equation}\label{eq:coeff_gen}
+        \displaystyle c_n = 2\int_{0}^{1} f(x)\sin(n\pi x) \, dx
+    \end{equation}
+\end{center}
+\rule{\linewidth}{0.2mm}\\*[10pt]
+\textbf{a.)} From equation \eqref{eq:coeff_gen}, we get the integral:
+\begin{center}
+    \(\displaystyle c_n = 2\int_{0}^{1} (x - \frac{1}{2})\sin(n\pi x) \, dx\)
+\end{center}
+\clearpage \noindent
+By integration by parts, we get
+\begin{center}
+    \(\displaystyle\int\frac{2\cos(\pi nx)}{\pi n}dx-\frac{(2x - 1)\cos(\pi nx)}{\pi n}\)\\*[10pt]
+    \(\displaystyle u = \pi nx \rightarrow \frac{du}{dx} = \pi n \rightarrow dx = \frac{1}{\pi n}du\)\\*[10pt]
+    \(\displaystyle -\frac{2}{\pi^2n^2}\int\cos(u)du \rightarrow -\frac{2\sin(\pi nx)}{\pi^2n^2}\)\\*[10pt]
+    \(\displaystyle (-\frac{2\sin(\pi nx)}{\pi^2n^2}-\frac{(2x - 1)\cos(\pi nx)}{\pi n})\Bigg|_{0}^{1}\)\\*[10pt]
+    \(\displaystyle \frac{2\sin(\pi n) - \pi n\cos(\pi n)-\pi n}{\pi^2n^2}\)
+\end{center}
+For even n, we get \(\displaystyle-\frac{2}{\pi n}\) and for odd n, we get 0.\\*[10pt]
+Therefore, the fully generalized solution, according to \eqref{eq:heat_gen} is:
+\begin{center}
+\boxed{
+    \(\displaystyle u(t, x) = -\sum_{n \, = \, even}^{\infty} \frac{2}{\pi n}e^{-n^2\pi^2t}\sin(n\pi x)\)
+    }
+\end{center}
+\rule{\linewidth}{0.2mm}\\*[10pt]
+\textbf{b.)} From equation \eqref{eq:coeff_gen}, we get:
+\(\displaystyle c_n = 2\int_{0}^{\frac{1}{2}}\sin(n\pi x)dx = -\frac{2\cos(\pi nx)}{\pi n}\Bigg|_{0}^{\frac{1}{2}} = \frac{2 - 2\cos(\frac{\pi n}{2})}{\pi n}\)\\*[10pt]
+This term equals 0 if n is a multiple of 4. Therefore, according to \eqref{eq:heat_gen}:
+\begin{center}
+\boxed{
+    \(\displaystyle u(t, x) = \sum_{n \, \% \, 4 \, \neq \, 0}^{\infty}\frac{2 - 2\cos(\frac{\pi n}{2})}{\pi n} e^{-n^2\pi^2t}\sin(n\pi x)\)
+    }
+\end{center}
+\clearpage \noindent
+
+\section{Question 2}
+The Neumann boundary equations are given by the following:
+\begin{center}
+    \(\displaystyle \frac{\partial u}{\partial t}(t, x) = \frac{\partial^2u}{\partial x^2}(t, x)\)\\*[10pt]
+    \(\displaystyle \frac{\partial u}{\partial x}(t, 0) = \frac{\partial u}{\partial x}(t, 1) = 0\)\\*[10pt]
+    \(u(0, x) = f(x)\)\\*[10pt]
+\end{center}
+\rule{\linewidth}{0.2mm}\\*[10pt]
+\textbf{a.)} Let \(\lambda\) be any real number. If \(T(t) = e^{\lambda t}\) , \(X''(x) = \lambda X(x)\) and \( X'(0) = X'(1) = 0\), we can compute the first derivative w.r.t. t of \(u(t, x) = X(x)T(t)\) and the second derivative w.r.t. x of \(u(t, x) = X(x)T(t)\) to get:
+\begin{center}
+    \(\displaystyle \frac{\partial u}{\partial t} = X(x) \frac{\partial T}{\partial t}\)\\*[10pt]
+    \(\displaystyle \frac{\partial^2u}{\partial x^2} = \frac{\partial^2X}{\partial x^2}T(t)\)
+\end{center}
+Substituting these straight back into the heat equation, we get:
+\begin{center}
+    \(\displaystyle X(x)\frac{\partial T}{\partial t} = \frac{\partial^2X}{\partial x^2}T(t)\)
+\end{center}
+\(\displaystyle \frac{\partial T}{\partial t} = \lambda e^{\lambda t}\), so then substituting the expressions for \(X(x)\) and \(T(t)\), we get:
+\begin{center}
+    \(\lambda X(x) e^{\lambda t} = \lambda X(x)e^{\lambda t}\)
+\end{center}
+Which is obviously true. Therefore, it is a valid solution.\\*[10pt]
+\rule{\linewidth}{0.2mm}\\*[10pt]
+\textbf{b.)} We aim to find a family of functions where the derivatives of \(X_n(x)\) are 0 both at \(x = 0\) and \(x = 1\). We already know that the family of functions \(X_n(x) = k\sin(n\pi x)\) satisfy the Dirichlet boundary conditions \(u(t, 0) = u(t, 1) = 0\). This means we have to find a family of functions where the derivative of that family of functions equals \(X_n(x) = k\sin(n\pi x)\). Therefore, taking the anti-derivative, we get \(X_n(x) = k\cos(n\pi x)\). Doing a quick check shows us that the all positive integers n (and 0) also satisfy the condition \(X(0) = 1\).\\*[10pt]
+Now that we know our family of functions and the range of n, we can plug the family of functions (for \(X(x)\)) into the relation \(X''(x) = \lambda_n X(x)\). The double derivative of \(X_n(x) = \cos(n\pi x)\) is \(-n^2\pi^2\cos(n\pi x)\), meaning \(\lambda_n\) indeed does take the form \(-n^2\pi^2\). This means \(u(x, t) = X(x)T(t) = \cos(n\pi x)e^{\lambda t} = \cos(n\pi x)e^{-n^2\pi^2 t}\). By the nature of linearity, the fully generalized form is therefore:
+\begin{center}
+    \(\displaystyle u(t, x) = \sum_{n=0}^{\infty} c_ne^{-n^2\pi^2t}\cos(n\pi x)\)
+\end{center}
+\clearpage \noindent
+\textbf{c.)} As \(t \rightarrow \infty\), the exponential term dominates and the profile flattens out. However, unlike the Dirichlet boundary conditions, where \(u(t, 0) = u(t, 1) = 0\), the Neumann has one degree of freedom, since it's definition is \(\displaystyle \frac{\partial u}{\partial x}(t, 0) = \frac{\partial u}{\partial x}(t, 1) = 0\). It doesn't fix positional boundary values, so \(\lim\limits_{t \to +\infty} u(t, x)\) can equal any constant \(c_0\).\\*[10pt]
+\rule{\linewidth}{0.2mm}\\*[10pt]
+\textbf{d.)} Given the identity: 
+\begin{center}
+    \(\displaystyle c_0 = \int_{0}^{1} f(x)\cos(n\pi x) \, dx = 0\) for all \(n \geq 1\)
+\end{center}
+Since we consider \(n = 0, 1, \ldots\), the only non-zero term for the heat profile would be \(n = 0\). Plugging this in, since \(\cos(0) = 1\), this gives us:
+\begin{center}
+    \(\displaystyle c_0 = \int_{0}^{1} f(x)dx\)
+\end{center}
+\clearpage \noindent
+
+\section{Question 3}
+Solve the inhomogeneous heat equation with Dirichlet boundary conditions:
+\begin{center}
+    \(\displaystyle \frac{\partial u}{\partial t}(t, x) = \frac{\partial^2 x}{\partial x^2}(t, x) + g(t, x)\)\\*[10pt]
+    \(u(t, 0) = u(t, 1) = 0\)\\*[10pt]
+    \(u(0, x) = f(x)\)
+\end{center}
+in the following two cases:\\*[10pt]
+\textbf{a.)} \(f(x) = \sin (2\pi x) - \sin (\pi x)\), and \(g(t, x) = e^t\sin(\pi x)\)\\*[10pt]
+\textbf{b.)} \(f(x) = \sin (\pi x)\), and \(g(t, x) = t\sin (\pi x) + \sin (2\pi x)\)\\*[10pt]    
+\rule{\linewidth}{0.2mm}\\*[10pt]
+\textbf{a.)} Guess: \(u(t, x) = h_1(t)\sin(\pi x) + h_2(t)\sin(2\pi x)\). Plugging directly into the heat equation, we get:
+\begin{center}
+    \(\displaystyle h_1'\sin(\pi x) + h_2'\sin(2\pi x) = -\pi^2h_1\sin(\pi x) -4\pi^2h_2\sin(2\pi x) + e^t\sin(\pi x)\)
+\end{center}
+Based on the \(sin(n\pi x)\) terms, we get these two equations:
+\begin{center}
+    \(h_1' + \pi^2h_1 = e^t\)\\*[10pt]
+    \(h_2' + 4\pi^2h_2 = 0\)\\*[10pt]
+\end{center}
+For the first equation, we will need to use an integrating factor \(\displaystyle \mu(t) = e^{\int p(t)dt}\). \(p(t) = \pi^2\), so the integrating factor is \(\mu(t) = e^{\pi^2t}\). This will give us the equation:
+\begin{center}
+    \(\displaystyle\frac{d}{dt}(e^{\pi^2t}h_1) = e^{t(1+\pi^2)}\)
+\end{center}
+Integrating both sides, we get:
+\begin{center}
+    \(\displaystyle e^{\pi^2t}h_1 = \frac{e^{t\pi^2+t}}{\pi^2+1}+C\rightarrow h_1 = \frac{e^t}{\pi^2 + 1} + \frac{c_1}{e^{\pi^2t}}\)
+\end{center}
+The other ODE is separable.
+\begin{center}
+    \(h_2=c_2e^{-4\pi^2t}\)\\*[10pt]
+\end{center}
+Plugging into u(t, x), we get: 
+\begin{center}
+    \(\displaystyle u(t, x) = (\frac{e^t}{\pi^2 + 1} + \frac{c_1}{e^{\pi^2t}})\sin(\pi x) + (c_2e^{-4\pi^2t})\sin(2\pi x)\)
+\end{center}
+Using the fact that \(u(0, x) = \sin (2\pi x) - \sin (\pi x)\),
+\begin{center}
+    \(\displaystyle (\frac{1}{\pi^2 + 1} + c_1)\sin(\pi x) + c_2\sin(2\pi x)\)
+\end{center}
+\clearpage \noindent
+Therefore,
+\begin{center}
+    \(\displaystyle c_1 = -\frac{1}{\pi^2 + 1} - 1\) and \(c_2 = 1\).
+\end{center}
+Finally,
+\begin{center}
+\boxed{
+    \(\displaystyle u(t, x) = \frac{e^{t(\pi^2+1)}-\pi^2-2}{(\pi^2+1)e^{\pi^2t}}\sin(\pi x) + \sin(2\pi x)\)
+    }
+\end{center}   
+\rule{\linewidth}{0.2mm}\\*[10pt]
+\textbf{b.)} Guess: \(u(t, x) = h_1(t)\sin(\pi x) + h_2(t)\sin(2\pi x)\). Plugging directly into the heat equation, we get:
+\begin{center}
+    \(\displaystyle h_1'\sin(\pi x) + h_2'\sin(2\pi x) = -\pi^2h_1\sin(\pi x) -4\pi^2h_2\sin(2\pi x) + t\sin(\pi x) + \sin(2\pi x)\)
+\end{center}
+Based on the \(sin(n\pi x)\) terms, we get these two equations:
+\begin{center}
+    \(h_1' + \pi^2h_1 = t\)\\*[10pt]
+    \(h_2' + 4\pi^2h_2 = 1\)\\*[10pt]
+\end{center}
+Both of these require the use of integrating factors, giving us the equations:
+\begin{center}
+    \(\displaystyle\frac{d}{dt}(e^{\pi^2t}h_1) = te^{\pi^2t}\)\\*[10pt]
+    \(\displaystyle\frac{d}{dt}(e^{4\pi^2t}h_2) = e^{4\pi^2t}\)
+\end{center}
+For the first equation, we need to use integration by parts:
+\begin{center}
+    \(\displaystyle\frac{te^{\pi^2t}}{\pi^2}-\int\frac{e^{\pi^2t}}{\pi^2}dt\)\\*[10pt]
+    \(\displaystyle u = \pi^2t\rightarrow du = \pi^2dt\rightarrow\frac{1}{\pi^4}\int e^udu\rightarrow \frac{e^u}{\pi^4}\rightarrow\frac{e^{\pi^2t}}{\pi^4}\rightarrow\frac{(\pi^2t-1)e^{\pi^2t}}{\pi^4}+C\)
+\end{center}
+From here, following the same procedure as for last question, we eventually get:
+\begin{center}
+    \(\displaystyle h_1 = \frac{\pi^2t-1}{\pi^4}+\frac{c_1}{e^{\pi^2t}}\)
+\end{center}
+The second ODE is separable, so:
+\begin{center}
+    \(\displaystyle h_2 = \frac{1}{4\pi^2}-\frac{c_2e^{-4\pi^2t}}{4\pi^2}\)
+\end{center}
+Plugging this into our guess for \(u(t, x)\):
+\begin{center}
+    \(\displaystyle(\frac{\pi^2t-1}{\pi^4}+\frac{c_1}{e^{\pi^2t}})\sin(\pi x) + (\frac{1}{4\pi^2}-\frac{c_2e^{-4\pi^2t}}{4\pi^2})\sin(2\pi x)\)
+\end{center}
+\(u(0, x) = \sin (\pi x)\), so:
+\begin{center}
+    \(\displaystyle c_1-\frac{1}{\pi^4} = 1\), \(\displaystyle\frac{1}{4\pi^2}-\frac{c_2}{4\pi^2}=0\)\\*[10pt]
+    \(\displaystyle c_1 = 1 + \frac{1}{\pi^4}\), \(c_2 = 1\)
+\end{center}
+Finally,
+\begin{center}
+\boxed{
+    \(\displaystyle u(t, x) = (\frac{\pi^2t-1}{\pi^4}+\frac{1}{e^{\pi^2t}}+\frac{1}{\pi^4e^{\pi^2t}})\sin(\pi x)+(\frac{1}{4\pi^2}-\frac{e^{-4\pi^2t}}{4\pi^2})\sin(2\pi x)\)
+    }
+\end{center}
+\end{document}
